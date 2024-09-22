@@ -15,5 +15,6 @@ const config: Config = {
     },
   },
   plugins: [],
+  darkMode: 'media', // or 'class' if you want to toggle dark mode manually
 };
 export default config;
