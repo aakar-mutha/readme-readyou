@@ -1,13 +1,19 @@
-import Link from 'next/link';
+import React from 'react';
 
-export default function Navbar() {
+const Navbar: React.FC = () => {
   return (
-    <header className="bg-gray-900 p-4">
-      <div className="container mx-auto">
-        <Link href="/" className="text-white text-2xl font-bold hover:text-gray-300">
-          ReadMe ReadYou
-        </Link>
+    <nav className="bg-white shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <a href="/" className="text-2xl font-bold text-blue-600">
+              ReadMe ReadYou
+            </a>
+          </div>
+        </div>
       </div>
-    </header>
+    </nav>
   );
-}
+};
+
+export default Navbar;
