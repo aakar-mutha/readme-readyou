@@ -97,9 +97,6 @@ export default function GitHubReadmeGenerator() {
         <div>
           <h2 className="text-2xl font-bold mb-2 text-white">Generated README:</h2>
           <pre className="bg-gray-800 p-4 rounded-lg whitespace-pre-wrap text-sm text-gray-300 font-mono">{readme}</pre>
-          <p className="mt-4 text-sm text-gray-400">
-            Embed link: <code className="bg-gray-700 px-2 py-1 rounded text-white">{`${process.env.NEXT_PUBLIC_BASE_URL}/embed/${username}`}</code>
-          </p>
           <p className="mt-2 text-sm text-gray-400">
             Markdown: <code className="bg-gray-700 px-2 py-1 rounded text-white">{`![Funny README](${process.env.NEXT_PUBLIC_BASE_URL}/api/embed/${username})`}</code>
           </p>
