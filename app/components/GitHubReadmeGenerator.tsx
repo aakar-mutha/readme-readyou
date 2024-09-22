@@ -101,7 +101,7 @@ export default function GitHubReadmeGenerator() {
             Embed link: <code className="bg-gray-700 px-2 py-1 rounded text-white">{`${process.env.NEXT_PUBLIC_BASE_URL}/embed/${username}`}</code>
           </p>
           <p className="mt-2 text-sm text-gray-400">
-            Markdown: <code className="bg-gray-700 px-2 py-1 rounded text-white">{`![Funny README](${process.env.NEXT_PUBLIC_BASE_URL}/embed/${username})`}</code>
+            Markdown: <code className="bg-gray-700 px-2 py-1 rounded text-white">{`![Funny README](${process.env.NEXT_PUBLIC_BASE_URL}/api/embed/${username})`}</code>
           </p>
         </div>
       )}

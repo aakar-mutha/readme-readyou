@@ -35,7 +35,6 @@ export async function GET(
     // Escape special characters to prevent XML parsing errors
     const escapedHtml = renderedHtml
 
-
     // Estimate the height based on content length (adjust multiplier as needed)
     const estimatedHeight = Math.max(630, escapedHtml.length / 2);
 
