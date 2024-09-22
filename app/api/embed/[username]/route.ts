@@ -18,7 +18,7 @@ export async function GET(
     const existingReadme = await readmesCollection.findOne({ username });
 
     if (!existingReadme) {
-      return new NextResponse('README not found', { status: 404 });
+      return new NextResponse(`README not found. Please generate a README first at ${process.env.NEXT_PUBLIC_BASE_URL}`, { status: 404 });
     }
 
     const markdown = existingReadme.content;
@@ -34,11 +34,7 @@ export async function GET(
 
     // Escape special characters to prevent XML parsing errors
     const escapedHtml = renderedHtml
-    //   .replace(/&/g, '&amp;')
-    //   .replace(/</g, '&lt;')
-    //   .replace(/>/g, '&gt;')
-    //   .replace(/"/g, '&quot;')
-    //   .replace(/'/g, '&#039;');
+
 
     // Estimate the height based on content length (adjust multiplier as needed)
     const estimatedHeight = Math.max(630, escapedHtml.length / 2);

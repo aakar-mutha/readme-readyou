@@ -6,7 +6,18 @@ export async function POST(request: Request) {
   const username = data.username.toLowerCase(); // Convert username to lowercase
 
   try {
-    // Fetch GitHub data
+    // Check if README already exists in MongoDB
+    const client = await clientPromise;
+    const db = client.db("github_readmes");
+    const readmesCollection = db.collection("readmes");
+
+    const existingReadme = await readmesCollection.findOne({ username });
+
+    if (existingReadme) {
+      return NextResponse.json({ readme: existingReadme.content, isCached: true });
+    }
+
+    // If README doesn't exist, fetch GitHub data and generate new README
     const githubResponse = await fetch(`https://api.github.com/users/${username}`);
     if (!githubResponse.ok) {
       if (githubResponse.status === 404) {
@@ -96,16 +107,13 @@ Make each section heading unique, funny, and related to coding, technology, or t
     generatedReadme += `\n\n---\n\nWant your own funny README? Check out [ReadMe ReadYou](${websiteUrl})!`;
 
     // Save the generated README to MongoDB
-    const client = await clientPromise;
-    const db = client.db("github_readmes");
-    const readmesCollection = db.collection("readmes");
     await readmesCollection.insertOne({
-      username, // This will now be lowercase
+      username,
       content: generatedReadme,
       createdAt: new Date()
     });
 
-    return NextResponse.json({ readme: generatedReadme });
+    return NextResponse.json({ readme: generatedReadme, isCached: false });
   } catch (error: unknown) {
     console.error('Error in POST function:', error);
     if (error instanceof Error) {
