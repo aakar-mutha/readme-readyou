@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: theme(colors.zinc.50);
+    --color-bg-secondary: theme(colors.white);
+    --color-accent: theme(colors.zinc.600);
+    --color-accent-light: theme(colors.zinc.400 / 0.1);
+    --color-accent-torch: theme(colors.zinc.700);
+    --color-text: theme(colors.zinc.700);
+    --color-text-secondary: theme(colors.zinc.500);
+    --color-dark-1: theme(colors.zinc.800);
+    --color-dark-2: theme(colors.zinc.700);
+    --color-dark-3: theme(colors.zinc.600);
+  }
+
+  .dark {
+    --color-bg: theme(colors.zinc.900);
+    --color-bg-secondary: theme(colors.zinc.800);
+    --color-accent: theme(colors.zinc.400);
+    --color-accent-light: theme(colors.zinc.700 / 0.3);
+    --color-text: theme(colors.zinc.300);
+    --color-text-secondary: theme(colors.zinc.400);
+    --color-dark-1: theme(colors.zinc.300);
+    --color-dark-2: theme(colors.zinc.400);
+    --color-dark-3: theme(colors.zinc.500);
+  }
+
+  body {
+    @apply bg-bg text-text transition-colors duration-200;
+  }
+
+  svg path {
+    @apply stroke-zinc-700 dark:stroke-zinc-300;
+  }
+}
+
+@layer components {
+  * {
+    @apply focus:outline focus:outline-dashed focus:outline-[3px] focus:outline-offset-4 focus:outline-accent;
+  }
+
+  .heading-secondary,
+  .h2 {
+    @apply text-3xl sm:text-4xl capitalize font-medium mb-8 sm:mb-12 text-dark-1 dark:text-dark-1;
+  }
+
+  .heading-tertiary,
+  .h3 {
+    @apply text-xl sm:text-2xl tracking-wide capitalize font-medium text-dark-2 dark:text-dark-2;
+  }
+}
