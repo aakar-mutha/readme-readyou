@@ -51,7 +51,8 @@ export default function GitHubReadmeGenerator() {
       const { exists, readme: existingReadme } = await checkResponse.json();
 
       if (exists) {
-        setReadme(existingReadme);
+        const updatedReadme = existingReadme + '\n\n[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/aakar)';
+        setReadme(updatedReadme);
       } else {
         // If README doesn't exist, fetch GitHub data and generate new README
         const githubResponse = await fetch(`/api/github/${username}`);
