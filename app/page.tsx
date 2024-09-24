@@ -3,13 +3,23 @@ import GitHubReadmeGenerator from './src/components/GitHubReadmeGenerator';
 import Footer from './src/components/Footer';
 import { Analytics } from "@vercel/analytics/react"
 import Hero from './src/components/Hero';
-import { Metadata } from 'next';
+import { seoData } from '../lib/metadata';
 
-export const metadata: Metadata = {
-  title: "ReadMe ReadYou",
-  description: "Generate a funny GitHub README for your profile",
+export const metadata = {
+  title: seoData.title,
+  description: seoData.description,
+  openGraph: {
+    title: seoData.title,
+    description: seoData.description,
+    images: [{ url: seoData.image }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: seoData.title,
+    description: seoData.description,
+    images: [seoData.image],
+  },
 };
-
 
 export default function HomePage() {
 
