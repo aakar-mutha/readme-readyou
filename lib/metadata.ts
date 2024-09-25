@@ -13,7 +13,7 @@ export const seoData = {
   title: 'ReadMe ReadYou | Generate Funny GitHub READMEs',
   description: 'Create unique and entertaining GitHub profile READMEs with ReadMe ReadYou. Stand out from the crowd with our fun and customizable README generator.',
   author: author.name,
-  image: 'https://ibb.co/F5BB6Yt',
+  image: 'https://i.ibb.co/GWVV7Mj/screenshot-rocks.png',
   url: process.env.NEXT_PUBLIC_URL || 'https://readme-readyou.vercel.app',
   keywords: [
     'ReadMe ReadYou',
