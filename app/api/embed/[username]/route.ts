@@ -35,7 +35,7 @@ export async function GET(
     // Escape special characters to prevent XML parsing errors
     const escapedHtml = renderedHtml.replace(/&/g, '&amp;')
     // Significantly increase the estimated height
-    const estimatedHeight = Math.max(2000, escapedHtml.length);
+    // const estimatedHeight = Math.max(2000, escapedHtml.length);
 
     // Set a fixed height for the SVG
     const fixedHeight = 1200;
