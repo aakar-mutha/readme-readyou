@@ -33,30 +33,55 @@ export async function GET(
     renderedHtml = renderedHtml.replace(/<hr\s*\/?>/g, '<svg width="100%" height="1"><line x1="0" y1="0" x2="100%" y2="0" stroke="#ffffff" /></svg>');
 
     // Escape special characters to prevent XML parsing errors
-    const escapedHtml = renderedHtml
+    const escapedHtml = renderedHtml.replace(/&/g, '&amp;')
+    // Significantly increase the estimated height
+    const estimatedHeight = Math.max(2000, escapedHtml.length);
 
-    // Estimate the height based on content length (adjust multiplier as needed)
-    const estimatedHeight = Math.max(630, escapedHtml.length / 2);
+    // Set a fixed height for the SVG
+    const fixedHeight = 1200;
 
     const svgContent = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="${estimatedHeight}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="${fixedHeight}" id="readme-svg">
+        <defs>
+          <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#161b22;stop-opacity:1" />
+          </linearGradient>
+        </defs>
         <style>
-          .container { font: 14px Arial, sans-serif; line-height: 1.5; }
-          h1 { font-size: 24px; color: #ffffff; margin-bottom: 10px; }
-          h2 { font-size: 20px; color: #ffffff; margin-top: 15px; margin-bottom: 8px; }
-          h3, h4, h5, h6 { color: #ffffff; }
-          p { margin: 0 0 10px; }
-          code { background: #2a2a2a; border-radius: 3px; padding: 2px 5px; }
-          pre { background: #2a2a2a; border-radius: 3px; padding: 10px; overflow-x: auto; }
-          ul { margin: 0 0 10px; padding-left: 20px; }
-          li { margin-bottom: 5px; }
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Fira+Code&amp;display=swap');
+          .container { font-family: 'Inter', Arial, sans-serif; line-height: 1.6; color: #c9d1d9; overflow-y: auto; max-height: ${fixedHeight - 60}px; }
+          .container::-webkit-scrollbar { width: 10px; }
+          .container::-webkit-scrollbar-track { background: #1c2128; }
+          .container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 5px; }
+          .container::-webkit-scrollbar-thumb:hover { background: #3f4954; }
+          h1, h2, h3, h4, h5, h6 { font-weight: 600; color: #58a6ff; margin-top: 24px; margin-bottom: 16px; letter-spacing: -0.5px; }
+          h1 { font-size: 32px; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
+          h2 { font-size: 24px; }
+          h3 { font-size: 20px; }
+          h4 { font-size: 18px; }
+          h5, h6 { font-size: 16px; }
+          p { margin: 0 0 16px; font-size: 16px; }
+          code { background: #2a2a2a; border-radius: 4px; padding: 2px 5px; font-family: 'Fira Code', monospace; font-size: 14px; }
+          pre { background: #2a2a2a; border-radius: 6px; padding: 16px; overflow-x: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1); white-space: pre-wrap; word-wrap: break-word; }
+          pre code { background: none; padding: 0; font-size: 14px; }
+          ul, ol { margin: 0 0 16px; padding-left: 24px; }
+          li { margin-bottom: 8px; }
           a { color: #58a6ff; text-decoration: none; }
-          img { max-width: 100%; height: auto; }
+          a:hover { text-decoration: underline; }
+          img { max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+          hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+          blockquote { border-left: 4px solid #30363d; margin: 0 0 16px; padding: 0 16px; color: #8b949e; }
+          table { border-collapse: collapse; margin-bottom: 16px; width: 100%; }
+          th, td { border: 1px solid #30363d; padding: 8px 12px; }
+          th { background-color: #161b22; font-weight: 600; }
+          .container > *:first-child { margin-top: 0; }
+          .container > *:last-child { margin-bottom: 0; }
         </style>
-        <rect width="100%" height="100%" fill="#000000"/>
-        <foreignObject width="1180" height="${estimatedHeight - 20}" x="10" y="10">
+        <rect width="100%" height="100%" fill="url(#bg-gradient)"/>
+        <foreignObject width="1140" height="${fixedHeight - 60}" x="30" y="30">
           <div xmlns="http://www.w3.org/1999/xhtml">
-            <div class="container" style="color: #ffffff;">
+            <div id="content-container" class="container" style="background: rgba(13,17,23,0.8); padding: 30px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.2);">
               ${escapedHtml}
             </div>
           </div>
