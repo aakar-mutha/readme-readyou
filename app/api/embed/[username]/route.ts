@@ -15,17 +15,41 @@ export async function GET(
     const db = client.db("github_readmes");
     const readmesCollection = db.collection("readmes");
 
-    const existingReadme = await readmesCollection.findOne({ username });
+    // First, find the user document to check for the default mode
+    const userDocument = await readmesCollection.findOne({ username: username.toLowerCase() });
 
-    if (!existingReadme) {
+    if (!userDocument) {
       return new NextResponse(`README not found. Please generate a README first at ${process.env.NEXT_PUBLIC_BASE_URL}`, { status: 404 });
     }
-    const markdown = existingReadme.content;
 
+    let readme;
+    if (userDocument.defaultMode) {
+      // If a default mode is set, fetch that README
+      const defaultReadme = await readmesCollection.findOne({ 
+        username: username.toLowerCase(), 
+        mode: userDocument.defaultMode 
+      });
+      readme = defaultReadme ? defaultReadme.content : null;
+    }
+
+    // If no default README is found, fall back to the 'standard' mode
+    if (!readme) {
+      const standardReadme = await readmesCollection.findOne({ 
+        username: username.toLowerCase(), 
+        mode: 'standard' 
+      });
+      readme = standardReadme ? standardReadme.content : null;
+    }
+
+    if (!readme) {
+      return new NextResponse(`No README found for the user. Please generate a README first at ${process.env.NEXT_PUBLIC_BASE_URL}`, { status: 404 });
+    }
+
+    // The rest of the SVG generation code remains the same
     const processedContent = await remark()
       .use(gfm)
       .use(html)
-      .process(markdown);
+      .process(readme);
     let renderedHtml = processedContent.toString();
     
     // Replace <hr> tags with custom SVG lines
