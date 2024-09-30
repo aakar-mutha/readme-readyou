@@ -24,7 +24,7 @@ export async function GET(
     const existingReadme = await readmesCollection.findOne({ username });
 
     if (existingReadme) {
-      existingReadme.content = existingReadme.content + '\n\n[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/aakar)';
+      // existingReadme.content = existingReadme.content + '\n\n[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/aakar)';
       return NextResponse.json({ exists: true, readme: existingReadme.content });
     } else {
       return NextResponse.json({ exists: false });

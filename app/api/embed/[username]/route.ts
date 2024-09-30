@@ -20,7 +20,6 @@ export async function GET(
     if (!existingReadme) {
       return new NextResponse(`README not found. Please generate a README first at ${process.env.NEXT_PUBLIC_BASE_URL}`, { status: 404 });
     }
-
     const markdown = existingReadme.content;
 
     const processedContent = await remark()
@@ -38,7 +37,7 @@ export async function GET(
     // const estimatedHeight = Math.max(2000, escapedHtml.length);
 
     // Set a fixed height for the SVG
-    const fixedHeight = 1200;
+    const fixedHeight = 900;
 
     const svgContent = `
       <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="${fixedHeight}" id="readme-svg">
@@ -79,7 +78,7 @@ export async function GET(
           .container > *:last-child { margin-bottom: 0; }
         </style>
         <rect width="100%" height="100%" fill="url(#bg-gradient)"/>
-        <foreignObject width="1140" height="${fixedHeight - 60}" x="30" y="30">
+        <foreignObject width="1140" height="${fixedHeight}" x="30" y="30">
           <div xmlns="http://www.w3.org/1999/xhtml">
             <div id="content-container" class="container" style="background: rgba(13,17,23,0.8); padding: 30px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.2);">
               ${escapedHtml}
