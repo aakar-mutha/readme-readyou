@@ -25,7 +25,7 @@ We're thrilled to announce the launch of **ReadMe ReadYou**, a tool designed to 
 
 ## Join the Community
 
-Stay updated with the latest features and updates by following us on social media:
+Stay updated with the latest features and updates by following me on social media:
 
 - [X](https://x.com/aakarmutha)
 - [LinkedIn](https://www.linkedin.com/in/aakar-mutha/?utm_source=github)
